@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import com.code.hacks.codered.evnts.evnts.fragments.HomeFragment;
 import com.code.hacks.codered.evnts.evnts.fragments.NavigationDrawerFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private Toolbar mToolbar;
     private NavigationDrawerFragment mNavigationDrawerFragment;
@@ -34,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
                 (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
         fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, HomeFragment.newInstance())
+                .commit();
+    }
+
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, HomeFragment.newInstance())
                 .commit();
