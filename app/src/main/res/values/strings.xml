@@ -16,4 +16,9 @@
     <string name="signup">Sign Up</string>
     <string name="register">Register</string>
     <string name="forgot_password"><u>Forgot Password?</u></string>
+
+    <!--Messages-->
+    <string name="fillEmailAndPass">Please fill email and password.</string>
+    <string name="invalidEmail">Invalid email address.</string>
+
 </resources>

@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.code.hacks.codered.evnts.evnts.util.Util;
+import com.code.hacks.codered.evnts.evnts.views.CustomButton;
 import com.code.hacks.codered.evnts.evnts.views.CustomEditText;
 
 import java.lang.reflect.Array;
@@ -21,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private CustomEditText email;
     private CustomEditText password;
+    private CustomButton loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +32,28 @@ public class LoginActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         email = (CustomEditText) findViewById(R.id.email);
         password = (CustomEditText) findViewById(R.id.password);
+        loginButton = (CustomButton) findViewById(R.id.login_button);
 
+        //Validates entry for email address
         email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(Util.isValidEmail(email.getText().toString().trim())){
-                    Toast.makeText(getApplicationContext(), "Valid mail", Toast.LENGTH_SHORT);
+                if (!email.isValidEmail()) {
+                    email.setError(getString(R.string.invalidEmail));
+                }
+            }
+        });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Check for email and password entry
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.fillEmailAndPass), Toast.LENGTH_SHORT).show();
+                } else if (false) {
+                //TODO Authentication failed
                 } else {
-                    Toast.makeText(getApplicationContext(), "Invalid mail", Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
                 }
             }
         });
