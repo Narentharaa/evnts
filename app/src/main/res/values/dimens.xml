@@ -15,4 +15,7 @@
     <dimen name="social_button_padding_vertical">0dp</dimen>
     <dimen name="control_corner_splash">0dp</dimen>
     <dimen name="button_padding_vertical_splash">14dp</dimen>
+    <dimen name="cover_height">150dp</dimen>
+    <dimen name="profile_width">50dp</dimen>
+    <dimen name="profile_height">50dp</dimen>
 </resources>
