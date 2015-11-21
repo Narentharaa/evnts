@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"><shape android:shape="rectangle">
+        <gradient android:centerColor="@color/list_item_pressed" android:endColor="@color/list_item_pressed" android:startColor="@color/list_item_pressed" />
+    </shape></item>
+    <item><shape android:shape="rectangle">
+        <gradient android:centerColor="@color/selected_list_item" android:endColor="@color/selected_list_item" android:startColor="@color/selected_list_item" />
+    </shape></item>
+</selector>

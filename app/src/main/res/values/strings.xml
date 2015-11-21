@@ -11,4 +11,6 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="forgot_password"><u>Forgot Password?</u></string>
+    <string name="navigation_drawer_open">Navigation Drawer Open</string>
+    <string name="navigation_drawer_close">Navigation Drawer Close</string>
 </resources>
