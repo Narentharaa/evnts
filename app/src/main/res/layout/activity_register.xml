@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:id="@+id/signup_form"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        <com.code.hacks.codered.evnts.evnts.views.CustomEditText
+            android:id="@+id/firstName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:hint="@string/firstName"
+            android:textColorHint="@color/hint_foreground_material_light"
+            android:textColor="@color/base_text_color">
+            <requestFocus />
+        </com.code.hacks.codered.evnts.evnts.views.CustomEditText>
+        <com.code.hacks.codered.evnts.evnts.views.CustomEditText
+            android:id="@+id/lastName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/hint_foreground_material_light"
+            android:hint="@string/lastName"
+            android:textColor="@color/base_text_color">
+        </com.code.hacks.codered.evnts.evnts.views.CustomEditText>
+        <com.code.hacks.codered.evnts.evnts.views.CustomEditText
+            android:id="@+id/univName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/hint_foreground_material_light"
+            android:hint="@string/univName"
+            android:textColor="@color/base_text_color">
+        </com.code.hacks.codered.evnts.evnts.views.CustomEditText>
+        <com.code.hacks.codered.evnts.evnts.views.CustomEditText
+            android:id="@+id/email"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/hint_foreground_material_light"
+            android:hint="@string/email"
+            android:textColor="@color/base_text_color">
+        </com.code.hacks.codered.evnts.evnts.views.CustomEditText>
+        <com.code.hacks.codered.evnts.evnts.views.CustomEditText
+            android:id="@+id/password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/hint_foreground_material_light"
+            android:hint="@string/password"
+            android:textColor="@color/base_text_color">
+        </com.code.hacks.codered.evnts.evnts.views.CustomEditText>
+        <com.code.hacks.codered.evnts.evnts.views.CustomButton
+            android:id="@+id/signup_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_btn"
+            android:gravity="center"
+            android:text="@string/signup"
+            />
+    </LinearLayout>
+
+</RelativeLayout>
