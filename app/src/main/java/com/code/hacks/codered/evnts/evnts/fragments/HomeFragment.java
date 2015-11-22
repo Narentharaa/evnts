@@ -1,13 +1,11 @@
 package com.code.hacks.codered.evnts.evnts.fragments;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +22,6 @@ import com.code.hacks.codered.evnts.evnts.adapters.EventListAdapter;
 import com.code.hacks.codered.evnts.evnts.bean.Event;
 import com.code.hacks.codered.evnts.evnts.models.Events;
 import com.google.gson.Gson;
-
-import java.util.ArrayList;
 
 /**
  * Created by sudharsanan on 4/15/15.
@@ -73,48 +69,42 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-    private class FetchEvents extends AsyncTask<Integer, Integer, ArrayList<Event>> {
+//    private class FetchEvents extends AsyncTask<Integer, Integer, ArrayList<Event>> {
+//
+//        @Override
+//        protected ArrayList<Event> doInBackground(Integer... sectionNumber) {
+//            return addData();
+//        }
+//
+//        @Override
+//        protected void onPostExecute(ArrayList<Event> eventArrayList) {
+//            super.onPostExecute(eventArrayList);
+//
+//        }
+//    }
 
-        @Override
-        protected ArrayList<Event> doInBackground(Integer... sectionNumber) {
-            return addData();
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Event> eventArrayList) {
-            super.onPostExecute(eventArrayList);
-
-        }
-    }
-
-    private ArrayList<Event> addData() {
-        ArrayList<Event> resultList = new ArrayList<Event>();
+    private void addData() {
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        StringRequest sr = new StringRequest(Request.Method.GET, "http://6172ea19.ngrok.io/api/v1/events", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Gson gson = new Gson();
-                Events events = gson.fromJson(response, Events.class);
-                for (Event event : events.getEvents())
-                    event.setImageUrl("http://sudharti.github.io/paper/assets/img/img-8.jpg");
-                eventListAdapter = new EventListAdapter(getActivity(), events.getEvents());
-                eventRecyclerView.setAdapter(eventListAdapter);
-            }
-        }, new Response.ErrorListener() {
+        StringRequest sr = new StringRequest(Request.Method.GET, "http://6172ea19.ngrok.io/api/v1/events",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Gson gson = new Gson();
+                        Events events = gson.fromJson(response, Events.class);
+                        for (Event event : events.getEvents())
+                            event.setImageUrl("http://sudharti.github.io/paper/assets/img/img-8.jpg");
+
+                        eventListAdapter = new EventListAdapter(getActivity(), events.getEvents());
+                        eventRecyclerView.setAdapter(eventListAdapter);
+                    }
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context, "Error while fetching events.", Toast.LENGTH_SHORT).show();
-                Log.d("EVENT", "Failed to fetch");
             }
         });
 
-//        for (Event event : events.getEvents()) {
-//            event.setImageUrl("http://sudharti.github.io/paper/assets/img/img-8.jpg");
-//            resultList.add(event);
-//        }
-
-        return resultList;
     }
 }
