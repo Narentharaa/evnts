@@ -4,6 +4,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.code.hacks.codered.evnts.evnts.R;
 import com.code.hacks.codered.evnts.evnts.adapters.NavDrawerAdapter;
@@ -22,6 +25,13 @@ public class CategoryFragment extends ListFragment {
     public static CategoryFragment newInstance() {
         CategoryFragment fragment = new CategoryFragment();
         return fragment;
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        DrawerItem item = (DrawerItem)l.getAdapter().getItem(position);
+        Toast.makeText(v.getContext(), item.getAction() + item.getId(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -53,15 +63,15 @@ public class CategoryFragment extends ListFragment {
     }
 
     private ArrayList<DrawerItem> addCategories() {
-        categoryList.add(new DrawerItem("Studies", R.mipmap.ic_action_books_100));
-        categoryList.add(new DrawerItem("Cultural", R.mipmap.ic_action_dancing_100));
-        categoryList.add(new DrawerItem("Volunteering", R.mipmap.ic_action_helping_hand_100));
-        categoryList.add(new DrawerItem("Fun", R.mipmap.ic_action_wink_100));
-        categoryList.add(new DrawerItem("Clubs", R.mipmap.ic_action_clubs_100));
-        categoryList.add(new DrawerItem("Life Skills", R.mipmap.ic_action_life_cycle_100));
-        categoryList.add(new DrawerItem("Food", R.mipmap.ic_action_food_filled_100));
-        categoryList.add(new DrawerItem("Jobs", R.mipmap.ic_action_suitcase_100));
-        categoryList.add(new DrawerItem("Debates", R.mipmap.ic_action_strike_100));
+        categoryList.add(new DrawerItem("Studies", R.mipmap.ic_action_books_100, 1));
+        categoryList.add(new DrawerItem("Cultural", R.mipmap.ic_action_dancing_100, 2));
+        categoryList.add(new DrawerItem("Volunteering", R.mipmap.ic_action_helping_hand_100, 3));
+        categoryList.add(new DrawerItem("Fun", R.mipmap.ic_action_wink_100, 4));
+        categoryList.add(new DrawerItem("Clubs", R.mipmap.ic_action_clubs_100, 5));
+        categoryList.add(new DrawerItem("Life Skills", R.mipmap.ic_action_life_cycle_100, 6));
+        categoryList.add(new DrawerItem("Food", R.mipmap.ic_action_food_filled_100, 7));
+        categoryList.add(new DrawerItem("Jobs", R.mipmap.ic_action_suitcase_100, 8));
+        categoryList.add(new DrawerItem("Debates", R.mipmap.ic_action_strike_100, 9));
 
         return categoryList;
     }
