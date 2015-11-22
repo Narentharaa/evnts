@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment {
 
         int sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
         if(sectionNumber == 1) {
-            url = Constants.API_URL + "events";
+            url = Constants.API_URL + "events?user_id=" + pref.getString("current_user_id", "-1");
         } else if(sectionNumber == 3) {
             url = Constants.API_URL + "event_registrations/list?user_id=" + pref.getString("current_user_id", "-1");
         }

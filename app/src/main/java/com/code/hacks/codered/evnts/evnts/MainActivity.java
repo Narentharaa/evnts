@@ -65,7 +65,16 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
             Intent loginAct = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(loginAct);
             finish();
+        }
 
+        if(position == 4) {
+            Intent settings = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(settings);
+        }
+
+        if(position == 5) {
+            Intent help = new Intent(MainActivity.this, HelpActivity.class);
+            startActivity(help);
         }
 
         final Handler handler = new Handler();

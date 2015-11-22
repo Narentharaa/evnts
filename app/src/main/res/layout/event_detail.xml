@@ -90,7 +90,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
             android:text="@string/no_contact_info"
-            android:textSize="17sp"
+            android:textSize="14sp"
             android:textColor="@android:color/primary_text_light"
             android:layout_below="@id/event_date_layout"/>
         <com.code.hacks.codered.evnts.evnts.views.CustomButton

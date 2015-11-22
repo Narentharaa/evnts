@@ -124,10 +124,13 @@ public class DetailActivity extends AppCompatActivity {
                         name.setText(detail.getName());
                         if(detail.getLocation() !=null && !detail.getLocation().toString().isEmpty())
                             location.setText(detail.getLocation());
-                        contact.setText(detail.getContact());
+                        contact.setText("Contact Info: " + detail.getContact());
                         //prize.setText("Prize :\n" + detail.getPrize());
-                        summary.setText(detail.getSummary());
-                        date.setText(detail.getDate());
+                        if(detail.getSummary() !=null && !detail.getSummary().toString().isEmpty())
+                            summary.setText(detail.getSummary());
+
+                        if(detail.getDate() !=null && !detail.getDate().toString().isEmpty())
+                            date.setText(detail.getDate());
 
                         registerButton.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -203,5 +206,11 @@ public class DetailActivity extends AppCompatActivity {
             }
         };
         queue.add(sr);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 }

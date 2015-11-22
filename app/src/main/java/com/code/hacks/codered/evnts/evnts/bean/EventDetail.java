@@ -5,7 +5,53 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by sandeep on 11/21/2015.
  */
-public class EventDetail extends Event {
+public class EventDetail {
+
+    @SerializedName("title")
+    String name;
+
+    @SerializedName("university_name")
+    String location;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    @SerializedName("id")
+    int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @SerializedName("image")
+    String imageUrl;
+    @SerializedName("when")
+    String date;
     @SerializedName("contact")
     private String contact;
     @SerializedName("prize")
@@ -25,42 +71,6 @@ public class EventDetail extends Event {
     @SerializedName("university_id")
     private int university_id;
 
-    public EventDetail(String name, String imageUrl, String location, String date) {
-        super(name, imageUrl, location, date);
-    }
-
-    public EventDetail(String name, String imageUrl, String location, String date, String contact, String prize, String summary, int available, int filled, boolean transport, boolean food, int categoryId, int university_id) {
-        super(name, imageUrl, location, date);
-        this.contact = contact;
-        this.prize = prize;
-        this.summary = summary;
-        this.available = available;
-        this.filled = filled;
-        this.transport = transport;
-        this.food = food;
-        this.categoryId = categoryId;
-        this.university_id = university_id;
-    }
-
-    public EventDetail(String name, String imageUrl, String location, String date, int id, String contact, String prize, String summary, int available, int filled, boolean transport, boolean food, int categoryId, int university_id) {
-        super(name, imageUrl, location, date, id);
-        this.contact = contact;
-        this.prize = prize;
-        this.summary = summary;
-        this.available = available;
-        this.filled = filled;
-        this.transport = transport;
-        this.food = food;
-        this.categoryId = categoryId;
-        this.university_id = university_id;
-    }
-
-    public EventDetail(String name, String imageUrl, String location, String date, String contact, String prize, String summary) {
-        super(name, imageUrl, location, date);
-        this.contact = contact;
-        this.prize = prize;
-        this.summary = summary;
-    }
 
     public int getAvailable() {
         return available;
@@ -134,4 +144,11 @@ public class EventDetail extends Event {
         this.summary = summary;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }
