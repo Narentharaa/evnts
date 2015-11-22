@@ -6,88 +6,140 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
-
-    <LinearLayout
-        android:id="@+id/event_detail"
-        android:layout_width="fill_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_centerInParent="false"
-        android:orientation="vertical">
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+        android:layout_below="@id/toolbar">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="10dp">
         <com.code.hacks.codered.evnts.evnts.views.CustomTextViewBold
             android:id="@+id/name"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="25sp"
             android:layout_marginTop="15dp"
-            android:gravity="top" />
+            android:layout_marginLeft="15dp"
+            android:text="@string/more_details"
+            android:textColor="@android:color/primary_text_light"/>
+        <ImageView
+            android:id="@+id/image"
+            android:background="@drawable/cover"
+            android:layout_width="fill_parent"
+            android:layout_height="175dp"
+            android:scaleType="centerCrop"
+            android:layout_below="@id/name"
+            android:layout_margin="15dp" android:layout_marginTop="25dp"/>
         <com.code.hacks.codered.evnts.evnts.views.CustomTextView
             android:id="@+id/summary"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="top" />
-        <com.code.hacks.codered.evnts.evnts.views.CustomTextView
-            android:id="@+id/prize"
-            android:layout_width="fill_parent"
+            android:layout_margin="15dp"
+            android:layout_below="@id/image"
+            android:layout_marginTop="25dp"
+            android:textSize="15sp"
+             />
+        <LinearLayout
+            android:id="@+id/event_location_layout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="top" />
-        <com.code.hacks.codered.evnts.evnts.views.CustomTextView
-            android:id="@+id/location"
-            android:layout_width="fill_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@id/summary">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_location" />
+
+            <com.code.hacks.codered.evnts.evnts.views.CustomTextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/no_location"
+                android:textColor="@android:color/primary_text_light"
+                android:textSize="14sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/event_date_layout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="top" />
-        <com.code.hacks.codered.evnts.evnts.views.CustomTextView
-            android:id="@+id/date"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="top" />
+            android:layout_marginLeft="15dp"
+            android:layout_below="@id/event_location_layout">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_date" />
+
+            <com.code.hacks.codered.evnts.evnts.views.CustomTextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@android:color/primary_text_light"
+                android:textSize="14sp" />
+        </LinearLayout>
         <com.code.hacks.codered.evnts.evnts.views.CustomTextView
             android:id="@+id/contact"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:gravity="top" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:text="@string/no_contact_info"
+            android:textSize="17sp"
+            android:textColor="@android:color/primary_text_light"
+            android:layout_below="@id/event_date_layout"/>
         <com.code.hacks.codered.evnts.evnts.views.CustomButton
             android:id="@+id/register_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:gravity="top"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@id/contact"
             android:text="Register"/>
-        <android.support.v4.widget.Space
+        <com.code.hacks.codered.evnts.evnts.views.CustomTextViewBold
+            android:id="@+id/comments_label"
             android:layout_width="wrap_content"
-            android:layout_weight="0.3"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_height="wrap_content"
+            android:text="Comments"
+            android:textSize="18sp"
+            android:layout_below="@id/register_button"/>
+        <ListView
+            android:id="@+id/comments_list"
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/comments_label">
+        </ListView>
+        <com.code.hacks.codered.evnts.evnts.views.CustomEditText
+            android:id="@+id/comment_box"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_below="@id/comments_list"
+            android:hint="@string/comments"
+            android:textColorHint="@color/hint_foreground_material_light"
+            android:textColor="@color/base_text_color">
+        </com.code.hacks.codered.evnts.evnts.views.CustomEditText>
         <com.code.hacks.codered.evnts.evnts.views.CustomButton
             android:id="@+id/add_comment_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:gravity="top"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@id/comment_box"
             android:text="Comment"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/comments_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
-
+    </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

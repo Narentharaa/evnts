@@ -1,5 +1,6 @@
 package com.code.hacks.codered.evnts.evnts;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import com.code.hacks.codered.evnts.evnts.adapters.CommentsAdaptor;
 import com.code.hacks.codered.evnts.evnts.bean.Comment;
 import com.code.hacks.codered.evnts.evnts.bean.Comments;
 import com.code.hacks.codered.evnts.evnts.bean.EventDetail;
+import com.code.hacks.codered.evnts.evnts.bean.Registration;
+import com.code.hacks.codered.evnts.evnts.bean.Session;
 import com.code.hacks.codered.evnts.evnts.util.Constants;
 import com.code.hacks.codered.evnts.evnts.views.CustomButton;
 import com.code.hacks.codered.evnts.evnts.views.CustomTextView;
@@ -28,6 +31,8 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by sandeep on 11/21/15.
@@ -67,7 +72,7 @@ public class DetailActivity extends AppCompatActivity {
         name = (CustomTextViewBold) findViewById(R.id.name);
         location = (CustomTextView) findViewById(R.id.location);
         contact = (CustomTextView) findViewById(R.id.contact);
-        prize = (CustomTextView) findViewById(R.id.prize);
+        //prize = (CustomTextView) findViewById(R.id.prize);
         summary = (CustomTextView) findViewById(R.id.summary);
         date = (CustomTextView) findViewById(R.id.date);
         registerButton = (CustomButton) findViewById(R.id.register_button);
@@ -111,21 +116,24 @@ public class DetailActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         detail = gson.fromJson(response, EventDetail.class);
 
-                        Picasso.with(getApplicationContext())
-                                .load(detail.getImageUrl())
-                                .into(image);
-                        name.setText("Event :\n" + detail.getName());
-                        location.setText("Location :\n" + detail.getLocation());
-                        contact.setText("Contact :\n" + detail.getContact());
-                        prize.setText("Prize :\n" + detail.getPrize());
-                        summary.setText("Summary :\n" + detail.getSummary());
-                        date.setText("Date :\n" + detail.getDate());
+                        if(detail.getImageUrl() != null) {
+                            Picasso.with(getApplicationContext())
+                                    .load(detail.getImageUrl())
+                                    .into(image);
+                        }
+                        name.setText(detail.getName());
+                        if(detail.getLocation() !=null && !detail.getLocation().toString().isEmpty())
+                            location.setText(detail.getLocation());
+                        contact.setText(detail.getContact());
+                        //prize.setText("Prize :\n" + detail.getPrize());
+                        summary.setText(detail.getSummary());
+                        date.setText(detail.getDate());
 
                         registerButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 //TODO registration
-
+                            registerForEvent(getApplicationContext(),pref.getString("current_user_id", "0"), detail.getId());
                             }
                         });
 
@@ -164,5 +172,36 @@ public class DetailActivity extends AppCompatActivity {
 
         queue.add(sr);
 
+    }
+
+    public void registerForEvent(final Context context,final String userId, final Integer eventId) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        StringRequest sr = new StringRequest(Request.Method.POST, Constants.API_URL + "event_registrations/", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Gson gson = new Gson();
+                Registration registration = gson.fromJson(response, Registration.class);
+
+                Toast.makeText(context, "successfully registered for the event", Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Cant register for event", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("event_id", String.valueOf(eventId));
+                params.put("user_id", userId);
+
+                return params;
+            }
+        };
+        queue.add(sr);
     }
 }
