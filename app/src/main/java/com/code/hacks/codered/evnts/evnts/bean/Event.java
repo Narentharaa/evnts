@@ -1,16 +1,36 @@
 package com.code.hacks.codered.evnts.evnts.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by sudharti on 11/21/15.
  */
 public class Event {
-    String name, imageUrl, location, date;
+    @SerializedName("title")
+    String name;
+    @SerializedName("image")
+    String imageUrl;
+    @SerializedName("location")
+    String location;
+    @SerializedName("when")
+    String date;
 
     public Event(String name, String imageUrl, String location, String date) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.location = location;
         this.date = date;
+        this.imageUrl=imageUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", location='" + location + '\'' +
+                ", date='" + date + '\'' +
+                '}';
     }
 
     public String getName() {

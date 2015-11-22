@@ -91,8 +91,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             moreDetailButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent detailIntent = new Intent(v.getContext(), DetailActivity.class);
-                    v.getContext().startActivity(detailIntent);
+                    Intent detail = new Intent(v.getContext(), DetailActivity.class);
+                    v.getContext().startActivity(detail);
                 }
             });
 
