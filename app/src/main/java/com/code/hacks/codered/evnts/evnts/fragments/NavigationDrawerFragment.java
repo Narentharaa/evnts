@@ -104,6 +104,7 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
+                ((NavDrawerAdapter) actionsList.getAdapter()).setPositionSelected(position);
             }
         });
 
@@ -113,7 +114,7 @@ public class NavigationDrawerFragment extends Fragment {
         actionsArrayList.add(new DrawerItem("My Events", R.mipmap.ic_action_events));
         actionsArrayList.add(new DrawerItem("Bookmarked", R.mipmap.ic_action_bookmark));
         actionsArrayList.add(new DrawerItem("Settings", R.mipmap.ic_action_settings));
-        actionsArrayList.add(new DrawerItem("Help", R.mipmap.ic_action_search));
+        actionsArrayList.add(new DrawerItem("Help", R.mipmap.ic_action_help));
 
         adapter = new NavDrawerAdapter(getActivity(), actionsArrayList);
         actionsList.setAdapter(adapter);
@@ -140,6 +141,10 @@ public class NavigationDrawerFragment extends Fragment {
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.mipmap.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
+
+        actionsList.setItemChecked(mCurrentSelectedPosition, true);
+
+        selectItem(mCurrentSelectedPosition);
 
         // DrawerItemBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.

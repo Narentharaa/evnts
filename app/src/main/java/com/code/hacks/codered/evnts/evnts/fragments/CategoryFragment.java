@@ -1,10 +1,13 @@
 package com.code.hacks.codered.evnts.evnts.fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 
 import com.code.hacks.codered.evnts.evnts.R;
+import com.code.hacks.codered.evnts.evnts.adapters.EventListAdapter;
 import com.code.hacks.codered.evnts.evnts.adapters.NavDrawerAdapter;
 import com.code.hacks.codered.evnts.evnts.bean.DrawerItem;
 
@@ -16,12 +19,18 @@ import java.util.ArrayList;
 public class CategoryFragment extends ListFragment {
     boolean mDualPane;
     int mCurCheckPosition = 0;
+    private ArrayList<DrawerItem> categoryList;
+
+    public static CategoryFragment newInstance() {
+        CategoryFragment fragment = new CategoryFragment();
+        return fragment;
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        setListAdapter(new NavDrawerAdapter(getContext(), addCategories()));
+        categoryList = new ArrayList<DrawerItem>();
+        new FetchCategories().execute();
     }
 
     @Override
@@ -30,9 +39,22 @@ public class CategoryFragment extends ListFragment {
         outState.putInt("curChoice", mCurCheckPosition);
     }
 
-    private ArrayList<DrawerItem> addCategories() {
-        ArrayList<DrawerItem> categoryList = new ArrayList<>();
+    private class FetchCategories extends AsyncTask<Void, Integer, Void> {
 
+        @Override
+        protected Void doInBackground(Void... params) {
+            categoryList = addCategories();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            setListAdapter(new NavDrawerAdapter(getContext(), categoryList));
+        }
+    }
+
+    private ArrayList<DrawerItem> addCategories() {
         categoryList.add(new DrawerItem("Education", R.mipmap.ic_action_events));
         categoryList.add(new DrawerItem("Sports", R.mipmap.ic_action_events));
         categoryList.add(new DrawerItem("Life Skills", R.mipmap.ic_action_events));
