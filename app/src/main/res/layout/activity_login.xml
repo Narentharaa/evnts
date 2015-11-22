@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/toolbar"
@@ -12,52 +13,72 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="25dp"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="25dp"
         android:orientation="vertical">
+
         <com.code.hacks.codered.evnts.evnts.views.CustomEditText
             android:id="@+id/email"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
             android:hint="@string/email"
-            android:textColorHint="@color/hint_foreground_material_light"
-            android:textColor="@color/base_text_color">
+            android:inputType="textEmailAddress"
+            android:textColor="@color/base_text_color"
+            android:textColorHint="@color/hint_foreground_material_light">
+
             <requestFocus />
         </com.code.hacks.codered.evnts.evnts.views.CustomEditText>
+
         <com.code.hacks.codered.evnts.evnts.views.CustomEditText
             android:id="@+id/password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
             android:layout_marginTop="20dp"
-            android:textColorHint="@color/hint_foreground_material_light"
             android:hint="@string/password"
-            android:textColor="@color/base_text_color">
-        </com.code.hacks.codered.evnts.evnts.views.CustomEditText>
-        <com.code.hacks.codered.evnts.evnts.views.CustomButton
-            android:id="@+id/login_button"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textColor="@color/base_text_color"
+            android:textColorHint="@color/hint_foreground_material_light"></com.code.hacks.codered.evnts.evnts.views.CustomEditText>
+
+        <LinearLayout
             android:layout_marginTop="20dp"
-            android:background="@drawable/custom_btn"
-            android:gravity="center"
-            android:text="@string/login"
-            />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <com.code.hacks.codered.evnts.evnts.views.CustomButton
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:background="@drawable/custom_btn"
+                android:gravity="center"
+                android:text="@string/login" />
+
+            <com.code.hacks.codered.evnts.evnts.views.CustomButton
+                android:id="@+id/signup_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:background="@drawable/custom_btn"
+                android:gravity="center"
+                android:text="@string/signup" />
+        </LinearLayout>
+
     </LinearLayout>
+
     <com.code.hacks.codered.evnts.evnts.views.CustomTextView
         android:id="@+id/forgot_password_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/login_form"
         android:layout_below="@id/login_form"
         android:layout_marginTop="20dp"
+        android:clickable="true"
         android:text="@string/forgot_password"
         android:textColor="@color/secondary_text_color"
-        android:textSize="16sp"
-        android:clickable="true"
-        android:layout_alignLeft="@id/login_form"
-        />
+        android:textSize="16sp" />
 
 </RelativeLayout>
