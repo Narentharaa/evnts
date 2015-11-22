@@ -1,5 +1,6 @@
 package com.code.hacks.codered.evnts.evnts;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +9,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.code.hacks.codered.evnts.evnts.util.Util;
 import com.code.hacks.codered.evnts.evnts.views.CustomButton;
 import com.code.hacks.codered.evnts.evnts.views.CustomEditText;
 
 import java.lang.reflect.Array;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by sudharti on 11/21/15.
@@ -26,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     private CustomButton loginButton;
     private CustomButton signupButton;
 
+    RequestQueue queue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         password = (CustomEditText) findViewById(R.id.password);
         loginButton = (CustomButton) findViewById(R.id.login_button);
         signupButton = (CustomButton) findViewById(R.id.signup_button);
+
+        queue = Volley.newRequestQueue(getApplicationContext());
 
         //Validates entry for email address
         email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -53,12 +67,8 @@ public class LoginActivity extends AppCompatActivity {
                 //Check for email and password entry
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(getApplicationContext(), getString(R.string.fillEmailAndPass), Toast.LENGTH_SHORT).show();
-                } else if (false) {
-                    //TODO Authentication failed
                 } else {
-                    Toast.makeText(getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
-                    Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intentMain);
+                    loginWithCredentials(getApplicationContext(), email.getText().toString().trim(), password.getText().toString().trim());
                 }
             }
         });
@@ -71,5 +81,34 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void loginWithCredentials(Context context, final String email, final String password) {
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        StringRequest sr = new StringRequest(Request.Method.POST,"http://cced6296.ngrok.io/api/v1/sessions/", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
+                Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intentMain);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Wrong email/password combination", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("session[email]", email);
+                params.put("session[password]", password);
+
+                return params;
+            }
+        };
+        queue.add(sr);
     }
 }
