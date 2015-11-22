@@ -57,31 +57,9 @@ public class HomeFragment extends Fragment {
         queue = Volley.newRequestQueue(getContext());
         context = getContext();
 
-//        new FetchEvents().execute(getArguments().getInt(ARG_SECTION_NUMBER));
-
-        //TODO Remove after server startup
-//        events = new Events();
-//        Gson gson = new Gson();
-//        String eventsJSON = Util.readJSONFile("events.json", getContext());
-//        events = gson.fromJson(eventsJSON, Events.class);
-
         addData();
         return rootView;
     }
-
-//    private class FetchEvents extends AsyncTask<Integer, Integer, ArrayList<Event>> {
-//
-//        @Override
-//        protected ArrayList<Event> doInBackground(Integer... sectionNumber) {
-//            return addData();
-//        }
-//
-//        @Override
-//        protected void onPostExecute(ArrayList<Event> eventArrayList) {
-//            super.onPostExecute(eventArrayList);
-//
-//        }
-//    }
 
     private void addData() {
 
@@ -106,5 +84,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        queue.add(sr);
     }
 }
