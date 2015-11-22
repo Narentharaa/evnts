@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <RelativeLayout
+        android:id="@+id/profile"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/cover_height"
+        android:background="@drawable/cover">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/profile_width"
+            android:layout_height="@dimen/profile_height"
+            android:src="@drawable/avatar"
+            android:layout_centerInParent="true" />
+        <com.code.hacks.codered.evnts.evnts.views.CustomTextViewBold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:text="@string/test"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/avatar" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/drawer_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:drawSelectorOnTop="true"
+        android:layout_below="@id/profile"
+        tools:context=".NavigationDrawerFragment" />
+
+</RelativeLayout>
