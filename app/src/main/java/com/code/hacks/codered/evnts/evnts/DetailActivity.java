@@ -1,9 +1,11 @@
 package com.code.hacks.codered.evnts.evnts;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import com.code.hacks.codered.evnts.evnts.bean.Comment;
 import com.code.hacks.codered.evnts.evnts.bean.Comments;
 import com.code.hacks.codered.evnts.evnts.bean.EventDetail;
 import com.code.hacks.codered.evnts.evnts.util.Constants;
+import com.code.hacks.codered.evnts.evnts.views.CustomButton;
 import com.code.hacks.codered.evnts.evnts.views.CustomTextView;
 import com.code.hacks.codered.evnts.evnts.views.CustomTextViewBold;
 import com.google.gson.Gson;
@@ -40,9 +43,13 @@ public class DetailActivity extends AppCompatActivity {
     private CustomTextView prize;
     private CustomTextView summary;
     private CustomTextViewBold name;
+    private CustomButton registerButton;
 
     EventDetail detail;
     Intent intent;
+
+    private SharedPreferences pref;
+    private String eventPref = "EVENT_PREF";
 
     ListView commentsView;
     CommentsAdaptor commentsAdaptor;
@@ -53,6 +60,8 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_detail);
 
+        pref = getSharedPreferences(eventPref, MODE_PRIVATE);
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         image = (ImageView) findViewById(R.id.image);
         name = (CustomTextViewBold) findViewById(R.id.name);
@@ -61,7 +70,7 @@ public class DetailActivity extends AppCompatActivity {
         prize = (CustomTextView) findViewById(R.id.prize);
         summary = (CustomTextView) findViewById(R.id.summary);
         date = (CustomTextView) findViewById(R.id.date);
-
+        registerButton = (CustomButton) findViewById(R.id.register_button);
 
         intent = getIntent();
 
@@ -71,14 +80,6 @@ public class DetailActivity extends AppCompatActivity {
 //        new FetchComments().execute();
     }
 
-    private ArrayList<Comment> fetchComments() {
-        comments.add(new Comment("Naren", "Hello", "11/22/2015"));
-        comments.add(new Comment("Naren", "Hello", "11/22/2015"));
-        comments.add(new Comment("Naren", "Hello", "11/22/2015"));
-        comments.add(new Comment("Naren", "Hello", "11/22/2015"));
-        comments.add(new Comment("Naren", "Hello", "11/22/2015"));
-        return comments;
-    }
 
 //    private class FetchComments extends AsyncTask<Void, Integer, Void> {
 //
@@ -119,6 +120,15 @@ public class DetailActivity extends AppCompatActivity {
                         prize.setText("Prize :\n" + detail.getPrize());
                         summary.setText("Summary :\n" + detail.getSummary());
                         date.setText("Date :\n" + detail.getDate());
+
+                        registerButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //TODO registration
+
+                            }
+                        });
+
 
                         getComments();
                     }
