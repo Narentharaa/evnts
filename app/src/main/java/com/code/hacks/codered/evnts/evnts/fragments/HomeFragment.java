@@ -1,6 +1,6 @@
 package com.code.hacks.codered.evnts.evnts.fragments;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -33,8 +33,8 @@ public class HomeFragment extends Fragment {
     private RecyclerView.LayoutManager recylerLayoutManager;
     private EventListAdapter eventListAdapter;
 
-    Context context;
     RequestQueue queue;
+    Intent intent;
 
     public static HomeFragment newInstance(int sectionNumber) {
         HomeFragment fragment = new HomeFragment();
@@ -55,17 +55,22 @@ public class HomeFragment extends Fragment {
         eventRecyclerView.setLayoutManager(recylerLayoutManager);
 
         queue = Volley.newRequestQueue(getContext());
-        context = getContext();
-
+        intent = getActivity().getIntent();
         addData();
         return rootView;
     }
 
     private void addData() {
 
-        RequestQueue queue = Volley.newRequestQueue(context);
+        RequestQueue queue = Volley.newRequestQueue(getContext());
 
-        StringRequest sr = new StringRequest(Request.Method.GET, "http://6172ea19.ngrok.io/api/v1/events",
+        String url = "http://6172ea19.ngrok.io/api/v1/events";
+        int categoryId = intent.getIntExtra("category_id", 0);
+
+        if (categoryId != 0)
+            url = "http://6172ea19.ngrok.io/api/v1/categories/" + categoryId;
+
+        StringRequest sr = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -80,7 +85,7 @@ public class HomeFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "Error while fetching events.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error while fetching events.", Toast.LENGTH_SHORT).show();
             }
         });
 

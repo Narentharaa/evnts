@@ -1,6 +1,7 @@
 package com.code.hacks.codered.evnts.evnts.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
@@ -43,6 +44,10 @@ public class CategoryFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
         DrawerItem item = (DrawerItem) l.getAdapter().getItem(position);
         Toast.makeText(v.getContext(), item.getAction() + item.getId(), Toast.LENGTH_SHORT).show();
+
+        Intent eventsIntent = new Intent(getContext(), HomeFragment.class);
+        eventsIntent.putExtra("category_id", item.getId());
+        startActivity(eventsIntent);
     }
 
     @Override
@@ -111,7 +116,7 @@ public class CategoryFragment extends ListFragment {
                         Categories categories = gson.fromJson(response, Categories.class);
                         ArrayList<DrawerItem> categoryList = new ArrayList<>();
                         for (Category category : categories.getCategories())
-                            categoryList.add(new DrawerItem(category.getName(), iconMap.get(category.getName())));
+                            categoryList.add(new DrawerItem(category.getName(), iconMap.get(category.getName()), category.getId()));
                         setListAdapter(new NavDrawerAdapter(context, categoryList));
                     }
                 }, new Response.ErrorListener() {
