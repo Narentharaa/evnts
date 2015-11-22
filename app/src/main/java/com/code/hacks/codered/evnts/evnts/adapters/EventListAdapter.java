@@ -42,6 +42,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
     private Context context;
     private ArrayList<Event> eventArrayList;
+    private SharedPreferences pref;
+    private String eventPref = "EVENT_PREF";
 
     public EventListAdapter(Context context, ArrayList<Event> eventsArrayList)  {
         this.context = context;
@@ -64,6 +66,9 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         Picasso.with(context)
                 .load(event.getImageUrl())
                 .into(holder.eventImage);
+        pref = context.getSharedPreferences(eventPref, Context.MODE_PRIVATE);
+        isBookmarked(context, eventArrayList.get(position).getId(), pref.getString("current_user_id", "0"), holder.bookmarkButton);
+
     }
 
     @Override
@@ -80,8 +85,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         private ImageButton shareButton;
         private ImageButton bookmarkButton;
         private CustomButton moreDetailButton;
-        private SharedPreferences pref;
-        private String eventPref = "EVENT_PREF";
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -160,9 +163,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 Favored favored = gson.fromJson(response, Favored.class);
-                if(favored.isFavored()) {
-                    Toast.makeText(context, "Bookmarked Event", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(context, "Bookmarked Event", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -177,6 +178,36 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                 params.put("event_id", String.valueOf(eventId));
 
                 return params;
+            }
+        };
+        queue.add(sr);
+    }
+
+    public void isBookmarked(final Context context, final int eventId, final String userId, final ImageButton favButton) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        StringRequest sr = new StringRequest(Request.Method.GET, Constants.API_URL + "favourites/favored?user_id" + userId + "&event_id=" + eventId, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                Favored favored = gson.fromJson(response, Favored.class);
+                if(favored.isFavored()) {
+                    favButton.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_action_bookmark));
+                } else {
+                    favButton.setImageDrawable(context.getResources().getDrawable(R.mipmap.ic_action_bookmark));
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+
             }
         };
         queue.add(sr);
