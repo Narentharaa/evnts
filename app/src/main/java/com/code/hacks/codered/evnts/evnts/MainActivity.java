@@ -38,41 +38,19 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-        fragmentManager = getSupportFragmentManager();
+        /*fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, HomeFragment.newInstance())
-                .commit();
+                .replace(R.id.container, HomeFragment.newInstance(0))
+                .commit();*/
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         fragmentManager = getSupportFragmentManager();
-       /* mHandler = new Handler();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(position == 0) {
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.container, HomeFragment.newInstance())
-                            .commit();
-                } else if(position == 1) {
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.container, CategoryFragment.newInstance())
-                            .commit();
-                }
-            }
-        }, 200);
-*/
 
-        if(position == 0) {
-            /*fragmentManager.beginTransaction()
-                    .replace(R.id.container, HomeFragment.newInstance())
-                    .commit();*/
-            fragment = HomeFragment.newInstance();
-        } else if(position == 1) {
-            /*fragmentManager.beginTransaction()
-                    .replace(R.id.container, CategoryFragment.newInstance())
-                    .commit();*/
+        fragment = HomeFragment.newInstance(position + 1);
+
+        if(position == 1) {
             fragment = CategoryFragment.newInstance();
         }
 

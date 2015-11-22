@@ -7,9 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.code.hacks.codered.evnts.evnts.R;
 import com.code.hacks.codered.evnts.evnts.adapters.EventListAdapter;
@@ -22,13 +24,16 @@ import java.util.ArrayList;
  */
 public class HomeFragment extends Fragment {
 
+    private static final String ARG_SECTION_NUMBER = "section_number";
     private RecyclerView eventRecyclerView;
     private RecyclerView.LayoutManager recylerLayoutManager;
     private EventListAdapter eventListAdapter;
-    private ArrayList<Event> eventArrayList;
 
-    public static HomeFragment newInstance() {
+    public static HomeFragment newInstance(int sectionNumber) {
         HomeFragment fragment = new HomeFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -42,22 +47,21 @@ public class HomeFragment extends Fragment {
         recylerLayoutManager = new LinearLayoutManager(getActivity());
         eventRecyclerView.setLayoutManager(recylerLayoutManager);
 
-       new FetchEvents().execute();
+        new FetchEvents().execute(getArguments().getInt(ARG_SECTION_NUMBER));
 
         return rootView;
     }
 
-    private class FetchEvents extends AsyncTask<Void, Integer, Void> {
+    private class FetchEvents extends AsyncTask<Integer, Integer, ArrayList<Event>> {
 
         @Override
-        protected Void doInBackground(Void... params) {
-            eventArrayList = addData();
-            return null;
+        protected ArrayList<Event> doInBackground(Integer... sectionNumber) {
+            return addData();
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        protected void onPostExecute(ArrayList<Event> eventArrayList) {
+            super.onPostExecute(eventArrayList);
             eventListAdapter = new EventListAdapter(getActivity(), eventArrayList);
             eventRecyclerView.setAdapter(eventListAdapter);
         }
