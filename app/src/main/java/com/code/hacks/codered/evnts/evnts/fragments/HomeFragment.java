@@ -66,12 +66,12 @@ public class HomeFragment extends Fragment {
         // TODO Auto-generated method stub
         ArrayList<Event> resultList = new ArrayList<Event>();
 
-        resultList.add(new Event("Event 1", "http://sudharti.github.io/paper/assets/img/img-8.jpg"));
-        resultList.add(new Event("Event 2", "http://sudharti.github.io/paper/assets/img/img-5.jpg"));
-        resultList.add(new Event("Event 3", "http://sudharti.github.io/paper/assets/img/img-6.jpg"));
-        resultList.add(new Event("Event 4", "http://sudharti.github.io/paper/assets/img/img-7.jpg"));
-        resultList.add(new Event("Event 5", "http://sudharti.github.io/paper/assets/img/img-8.jpg"));
-        resultList.add(new Event("Event 6", "http://sudharti.github.io/paper/assets/img/img-5.jpg"));
+        resultList.add(new Event("Event 1", "http://sudharti.github.io/paper/assets/img/img-8.jpg", "UT Dallas", "21 Nov 2015"));
+        resultList.add(new Event("Event 2", "http://sudharti.github.io/paper/assets/img/img-5.jpg", "UT Dallas", "21 Nov 2015"));
+        resultList.add(new Event("Event 3", "http://sudharti.github.io/paper/assets/img/img-6.jpg", "UT Dallas", "21 Nov 2015"));
+        resultList.add(new Event("Event 4", "http://sudharti.github.io/paper/assets/img/img-7.jpg", "UT Dallas", "21 Nov 2015"));
+        resultList.add(new Event("Event 5", "http://sudharti.github.io/paper/assets/img/img-8.jpg", "UT Dallas", "21 Nov 2015"));
+        resultList.add(new Event("Event 6", "http://sudharti.github.io/paper/assets/img/img-5.jpg", "UT Dallas", "21 Nov 2015"));
 
         return resultList;
     }

@@ -40,6 +40,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     public void onBindViewHolder(EventListAdapter.ViewHolder holder, int position) {
         final Event event = eventArrayList.get(position);
         holder.eventName.setText(event.getName());
+        holder.eventLocation.setText(event.getLocation());
+        holder.eventDate.setText(event.getDate());
         Picasso.with(context)
                 .load(event.getImageUrl())
                 .into(holder.eventImage);
@@ -54,11 +56,15 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
         private ImageView eventImage;
         private CustomTextViewBold eventName;
+        private CustomTextView eventDate;
+        private CustomTextView eventLocation;
 
         public ViewHolder(View itemView) {
             super(itemView);
             eventImage = (ImageView) itemView.findViewById(R.id.event_image);
             eventName = (CustomTextViewBold) itemView.findViewById(R.id.event_name);
+            eventLocation = (CustomTextView) itemView.findViewById(R.id.event_location);
+            eventDate = (CustomTextView) itemView.findViewById(R.id.event_date);
 
             itemView.setOnClickListener(this);
         }

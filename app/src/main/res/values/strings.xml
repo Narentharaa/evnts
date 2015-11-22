@@ -23,4 +23,7 @@
     <string name="navigation_drawer_open">Navigation Drawer Open</string>
     <string name="navigation_drawer_close">Navigation Drawer Close</string>
     <string name="test">Test</string>
+    <string name="free">FREE</string>
+    <string name="no_location">No Location Specified</string>
+    <string name="more_details">More Details</string>
 </resources>
