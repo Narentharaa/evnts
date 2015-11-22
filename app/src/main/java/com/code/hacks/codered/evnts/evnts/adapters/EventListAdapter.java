@@ -1,12 +1,15 @@
 package com.code.hacks.codered.evnts.evnts.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.code.hacks.codered.evnts.evnts.R;
 import com.code.hacks.codered.evnts.evnts.bean.Event;
@@ -58,6 +61,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         private CustomTextViewBold eventName;
         private CustomTextView eventDate;
         private CustomTextView eventLocation;
+        private ImageButton shareButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -65,6 +69,20 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             eventName = (CustomTextViewBold) itemView.findViewById(R.id.event_name);
             eventLocation = (CustomTextView) itemView.findViewById(R.id.event_location);
             eventDate = (CustomTextView) itemView.findViewById(R.id.event_date);
+            shareButton = (ImageButton) itemView.findViewById(R.id.share_button);
+
+            shareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    String shareBody = "Here is the share content body";
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                    v.getContext().startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                    Toast.makeText(v.getContext(), "Sharing event", Toast.LENGTH_SHORT).show();
+                }
+            });
 
             itemView.setOnClickListener(this);
         }
