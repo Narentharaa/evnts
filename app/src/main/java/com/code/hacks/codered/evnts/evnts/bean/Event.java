@@ -4,7 +4,7 @@ package com.code.hacks.codered.evnts.evnts.bean;
  * Created by sudharti on 11/21/15.
  */
 public class Event {
-    private String name, imageUrl, location, date;
+    String name, imageUrl, location, date;
 
     public Event(String name, String imageUrl, String location, String date) {
         this.name = name;
