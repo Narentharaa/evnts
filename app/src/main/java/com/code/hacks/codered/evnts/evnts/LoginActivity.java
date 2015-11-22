@@ -57,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
                     //TODO Authentication failed
                 } else {
                     Toast.makeText(getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
+                    Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intentMain);
                 }
             }
         });
