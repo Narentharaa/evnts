@@ -16,7 +16,8 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
         <com.code.hacks.codered.evnts.evnts.views.CustomEditText
             android:id="@+id/email"
             android:layout_width="fill_parent"
@@ -27,6 +28,12 @@
             android:textColor="@color/base_text_color">
             <requestFocus />
         </com.code.hacks.codered.evnts.evnts.views.CustomEditText>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></LinearLayout>
+
         <com.code.hacks.codered.evnts.evnts.views.CustomEditText
             android:id="@+id/password"
             android:layout_width="fill_parent"
@@ -37,15 +44,43 @@
             android:hint="@string/password"
             android:textColor="@color/base_text_color">
         </com.code.hacks.codered.evnts.evnts.views.CustomEditText>
+
+        <com.code.hacks.codered.evnts.evnts.views.CustomButton
+            android:id="@+id/SignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_btn"
+            android:gravity="center"
+            android:text="@string/SignUp"
+            android:layout_gravity="right" />
+
         <com.code.hacks.codered.evnts.evnts.views.CustomButton
             android:id="@+id/login_button"
-            android:layout_width="fill_parent"
+            android:layout_width="67dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/custom_btn"
             android:gravity="center"
             android:text="@string/login"
             />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.06"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></LinearLayout>
+
     </LinearLayout>
     <com.code.hacks.codered.evnts.evnts.views.CustomTextView
         android:id="@+id/forgot_password_textview"
