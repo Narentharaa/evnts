@@ -58,6 +58,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="top" />
+        <com.code.hacks.codered.evnts.evnts.views.CustomButton
+            android:id="@+id/register_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="top"
+            android:text="Register"/>
     </LinearLayout>
 
     <ListView
