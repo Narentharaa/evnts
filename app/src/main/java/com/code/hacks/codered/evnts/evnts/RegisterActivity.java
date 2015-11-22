@@ -23,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     private CustomEditText univName;
     private CustomEditText email;
     private CustomEditText password;
+    private CustomEditText confirmPassword;
     private CustomButton signupButton;
 
     @Override
@@ -36,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         univName = (CustomEditText) findViewById(R.id.univName);
         email = (CustomEditText) findViewById(R.id.email);
         password = (CustomEditText) findViewById(R.id.password);
+        confirmPassword = (CustomEditText) findViewById(R.id.confirmPassword);
         signupButton = (CustomButton) findViewById(R.id.signup_button);
 
         signupButton.setOnClickListener(new View.OnClickListener() {
@@ -47,8 +49,14 @@ public class RegisterActivity extends AppCompatActivity {
                 isComplete = !univName.isEmpty(CustomEditText.ERROR) && isComplete;
                 isComplete = !email.isEmpty(CustomEditText.ERROR) && isComplete;
                 isComplete = !password.isEmpty(CustomEditText.ERROR) && isComplete;
+                isComplete = !confirmPassword.isEmpty(CustomEditText.ERROR) && isComplete;
                 if (isComplete) {
-                    //TODO Submit form
+                    if (!password.isSameAs(confirmPassword)) {
+                        confirmPassword.setError("Passwords do not match.");
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Sign up complete.", Toast.LENGTH_SHORT).show();
+                        //TODO Submit form
+                    }
                 }
             }
         });

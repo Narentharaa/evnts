@@ -1,5 +1,6 @@
 package com.code.hacks.codered.evnts.evnts;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private CustomEditText email;
     private CustomEditText password;
     private CustomButton loginButton;
+    private CustomButton signupButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         email = (CustomEditText) findViewById(R.id.email);
         password = (CustomEditText) findViewById(R.id.password);
         loginButton = (CustomButton) findViewById(R.id.login_button);
+        signupButton = (CustomButton) findViewById(R.id.signup_button);
 
         //Validates entry for email address
         email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -51,10 +54,18 @@ public class LoginActivity extends AppCompatActivity {
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(getApplicationContext(), getString(R.string.fillEmailAndPass), Toast.LENGTH_SHORT).show();
                 } else if (false) {
-                //TODO Authentication failed
+                    //TODO Authentication failed
                 } else {
                     Toast.makeText(getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent register = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(register);
             }
         });
 

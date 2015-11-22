@@ -68,4 +68,8 @@ public class CustomEditText extends EditText {
         String target = this.getText().toString().trim();
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
+
+    public boolean isSameAs(EditText field){
+        return  this.getText().toString().equals(field.getText().toString());
+    }
 }
