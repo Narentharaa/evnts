@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 
 import com.code.hacks.codered.evnts.evnts.R;
 import com.code.hacks.codered.evnts.evnts.adapters.EventListAdapter;
+import com.code.hacks.codered.evnts.evnts.bean.Event;
+
+import java.util.ArrayList;
 
 /**
  * Created by sudharsanan on 4/15/15.
@@ -20,7 +23,8 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView eventRecyclerView;
     private RecyclerView.LayoutManager recylerLayoutManager;
-    private EventListAdapter recylerAdapter;
+    private EventListAdapter eventListAdapter;
+    private ArrayList<Event> eventArrayList;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -37,6 +41,8 @@ public class HomeFragment extends Fragment {
         recylerLayoutManager = new LinearLayoutManager(getActivity());
         eventRecyclerView.setLayoutManager(recylerLayoutManager);
 
+        new FetchEvents().execute();
+
         return rootView;
     }
 
@@ -44,13 +50,29 @@ public class HomeFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
+            eventArrayList = addData();
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            eventListAdapter = new EventListAdapter(getActivity(), eventArrayList);
+            eventRecyclerView.setAdapter(eventListAdapter);
         }
+    }
+
+    private ArrayList<Event> addData() {
+        // TODO Auto-generated method stub
+        ArrayList<Event> resultList = new ArrayList<Event>();
+
+        resultList.add(new Event("Event 1", "http://sudharti.github.io/paper/assets/img/img-8.jpg"));
+        resultList.add(new Event("Event 2", "http://sudharti.github.io/paper/assets/img/img-5.jpg"));
+        resultList.add(new Event("Event 3", "http://sudharti.github.io/paper/assets/img/img-6.jpg"));
+        resultList.add(new Event("Event 4", "http://sudharti.github.io/paper/assets/img/img-7.jpg"));
+        resultList.add(new Event("Event 5", "http://sudharti.github.io/paper/assets/img/img-8.jpg"));
+        resultList.add(new Event("Event 6", "http://sudharti.github.io/paper/assets/img/img-5.jpg"));
+
+        return resultList;
     }
 }

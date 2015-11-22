@@ -6,6 +6,11 @@ package com.code.hacks.codered.evnts.evnts.bean;
 public class Event {
     private String name, imageUrl;
 
+    public Event(String name, String imageUrl) {
+        this.name = name;
+        this.imageUrl = imageUrl;
+    }
+
     public String getName() {
         return name;
     }
