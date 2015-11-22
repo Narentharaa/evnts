@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
@@ -44,11 +45,10 @@ public class CategoryFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         DrawerItem item = (DrawerItem) l.getAdapter().getItem(position);
-        Toast.makeText(v.getContext(), item.getAction() + item.getId(), Toast.LENGTH_SHORT).show();
 
-        Intent eventsIntent = new Intent(getContext(), HomeFragment.class);
-        eventsIntent.putExtra("category_id", item.getId());
-        startActivity(eventsIntent);
+        Fragment fragment = HomeFragment.newInstance(2, item.getId());
+
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).attach(fragment).commit();
     }
 
     @Override
@@ -57,8 +57,6 @@ public class CategoryFragment extends ListFragment {
 
         context = getContext();
         addCategories();
-//        categoryList = new ArrayList<DrawerItem>();
-//        new FetchCategories().execute();
     }
 
     @Override
@@ -66,21 +64,6 @@ public class CategoryFragment extends ListFragment {
         super.onSaveInstanceState(outState);
         outState.putInt("curChoice", mCurCheckPosition);
     }
-
-//    private class FetchCategories extends AsyncTask<Void, Integer, Void> {
-//
-//        @Override
-//        protected Void doInBackground(Void... params) {
-//            categoryList = addCategories();
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            super.onPostExecute(aVoid);
-//            setListAdapter(new NavDrawerAdapter(getContext(), categoryList));
-//        }
-//    }
 
     HashMap<String, Integer> iconMap;
 
@@ -128,19 +111,6 @@ public class CategoryFragment extends ListFragment {
         });
 
         queue.add(sr);
-
-
-//        categoryList.add(new DrawerItem("Studies", R.mipmap.ic_action_books_100, 1));
-//        categoryList.add(new DrawerItem("Cultural", R.mipmap.ic_action_dancing_100, 2));
-//        categoryList.add(new DrawerItem("Volunteering", R.mipmap.ic_action_helping_hand_100, 3));
-//        categoryList.add(new DrawerItem("Fun", R.mipmap.ic_action_wink_100, 4));
-//        categoryList.add(new DrawerItem("Clubs", R.mipmap.ic_action_clubs_100, 5));
-//        categoryList.add(new DrawerItem("Life Skills", R.mipmap.ic_action_life_cycle_100, 6));
-//        categoryList.add(new DrawerItem("Food", R.mipmap.ic_action_food_filled_100, 7));
-//        categoryList.add(new DrawerItem("Jobs", R.mipmap.ic_action_suitcase_100, 8));
-//        categoryList.add(new DrawerItem("Debates", R.mipmap.ic_action_strike_100, 9));
-//
-//        return categoryList;
     }
 
 }

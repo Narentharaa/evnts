@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
     public void onNavigationDrawerItemSelected(int position) {
         fragmentManager = getSupportFragmentManager();
 
-        fragment = HomeFragment.newInstance(position + 1);
+        fragment = HomeFragment.newInstance(position + 1, -1);
 
         if(position == 1) {
             fragment = CategoryFragment.newInstance();

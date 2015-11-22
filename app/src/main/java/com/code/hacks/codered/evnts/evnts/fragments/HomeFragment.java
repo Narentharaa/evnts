@@ -1,6 +1,7 @@
 package com.code.hacks.codered.evnts.evnts.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,17 +31,21 @@ import com.google.gson.Gson;
 public class HomeFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String CATEGORY_ID = "category_id";
     private RecyclerView eventRecyclerView;
     private RecyclerView.LayoutManager recylerLayoutManager;
     private EventListAdapter eventListAdapter;
 
     RequestQueue queue;
-    Intent intent;
 
-    public static HomeFragment newInstance(int sectionNumber) {
+    private SharedPreferences pref;
+    private String eventPref = "EVENT_PREF";
+
+    public static HomeFragment newInstance(int sectionNumber, int categoryId) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        args.putInt(CATEGORY_ID, categoryId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,6 +54,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
+        pref = getActivity().getSharedPreferences(eventPref, getActivity().MODE_PRIVATE);
+
         eventRecyclerView = (RecyclerView) rootView.findViewById(R.id.event_recycler_view);
         eventRecyclerView.setHasFixedSize(true);
 
@@ -56,7 +63,7 @@ public class HomeFragment extends Fragment {
         eventRecyclerView.setLayoutManager(recylerLayoutManager);
 
         queue = Volley.newRequestQueue(getContext());
-        intent = getActivity().getIntent();
+
         addData();
         return rootView;
     }
@@ -65,11 +72,18 @@ public class HomeFragment extends Fragment {
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
-        String url = Constants.API_URL + "events";
-        int categoryId = intent.getIntExtra("category_id", 0);
+        String url = Constants.API_URL;
 
-        if (categoryId != 0)
-            url = Constants.API_URL + "categories/" + categoryId;
+        int sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+        if(sectionNumber == 1) {
+            url = Constants.API_URL + "events";
+        } else if(sectionNumber == 3) {
+            url = Constants.API_URL + "event_registrations/list?user_id=" + pref.getString("current_user_id", "-1");
+        }
+
+        int categoryId = getArguments().getInt(CATEGORY_ID);
+        if (categoryId != -1)
+            url = Constants.API_URL + "categories/" + categoryId + "/events";
 
         StringRequest sr = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
