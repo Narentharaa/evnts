@@ -14,6 +14,8 @@ public class Event {
     String location;
     @SerializedName("when")
     String date;
+    @SerializedName("id")
+    int id;
 
     public Event(String name, String imageUrl, String location, String date) {
         this.name = name;
@@ -21,6 +23,22 @@ public class Event {
         this.location = location;
         this.date = date;
         this.imageUrl=imageUrl;
+    }
+
+    public Event(String name, String imageUrl, String location, String date, int id) {
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.location = location;
+        this.date = date;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
