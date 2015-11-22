@@ -7,10 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,12 +17,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.code.hacks.codered.evnts.evnts.bean.Session;
 import com.code.hacks.codered.evnts.evnts.util.Constants;
-import com.code.hacks.codered.evnts.evnts.util.Util;
 import com.code.hacks.codered.evnts.evnts.views.CustomButton;
 import com.code.hacks.codered.evnts.evnts.views.CustomEditText;
 import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         pref = getSharedPreferences(eventPref, MODE_PRIVATE);
         prefEditor = pref.edit();
 
-        if(!pref.getString("current_user_id", "").isEmpty()) {
+        if (!pref.getString("current_user_id", "").isEmpty()) {
             Intent mainActivity = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(mainActivity);
         }
@@ -81,7 +77,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Check for email and password entry
                 if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.fillEmailAndPass), Toast.LENGTH_SHORT).show();
+                    if (!email.isValidEmail()) {
+                        email.setError("Invalid email address.");
+                    } else {
+                        Toast.makeText(getApplicationContext(), getString(R.string.fillEmailAndPass), Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     loginWithCredentials(getApplicationContext(), email.getText().toString().trim(), password.getText().toString().trim());
                 }
@@ -125,9 +125,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "Wrong email/password combination", Toast.LENGTH_SHORT).show();
             }
-        }){
+        }) {
             @Override
-            protected Map<String,String> getParams() {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("session[email]", email);
                 params.put("session[password]", password);

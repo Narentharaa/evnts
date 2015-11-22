@@ -105,7 +105,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                     sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
                     sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                     v.getContext().startActivity(Intent.createChooser(sharingIntent, "Share via"));
-                    Toast.makeText(v.getContext(), "Sharing event", Toast.LENGTH_SHORT).show();
                 }
             });
 

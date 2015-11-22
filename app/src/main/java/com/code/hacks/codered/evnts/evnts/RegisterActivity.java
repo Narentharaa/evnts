@@ -101,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 ShortUser user = gson.fromJson(response, ShortUser.class);
 
-                Toast.makeText(getApplicationContext(), user.getId(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), user.getId(), Toast.LENGTH_SHORT).show();
 
                 prefEditor.putString("current_user_id", user.getId());
                 prefEditor.putString("current_user_email", user.getEmail());
