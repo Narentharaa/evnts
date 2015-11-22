@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="top"
-            android:text="Add Comment"/>
+            android:text="Comment"/>
         </LinearLayout>
     </LinearLayout>
 
