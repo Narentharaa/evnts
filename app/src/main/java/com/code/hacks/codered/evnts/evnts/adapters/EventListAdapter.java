@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.code.hacks.codered.evnts.evnts.DetailActivity;
 import com.code.hacks.codered.evnts.evnts.R;
 import com.code.hacks.codered.evnts.evnts.bean.Event;
 import com.code.hacks.codered.evnts.evnts.views.CustomTextView;
@@ -90,6 +91,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         @Override
         public void onClick(View v) {
             //Call the Event Detail Intent here
+            Intent detail = new Intent(v.getContext(), DetailActivity.class);
+            v.getContext().startActivity(detail);
         }
     }
 }

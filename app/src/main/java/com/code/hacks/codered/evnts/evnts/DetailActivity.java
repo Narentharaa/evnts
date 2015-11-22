@@ -1,14 +1,22 @@
 package com.code.hacks.codered.evnts.evnts;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Adapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 
+import com.code.hacks.codered.evnts.evnts.adapters.CommentsAdaptor;
+import com.code.hacks.codered.evnts.evnts.adapters.NavDrawerAdapter;
+import com.code.hacks.codered.evnts.evnts.bean.Comment;
 import com.code.hacks.codered.evnts.evnts.bean.EventDetail;
 import com.code.hacks.codered.evnts.evnts.views.CustomTextView;
 import com.code.hacks.codered.evnts.evnts.views.CustomTextViewBold;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
  * Created by sandeep on 11/21/15.
@@ -24,6 +32,10 @@ public class DetailActivity extends AppCompatActivity {
     private CustomTextView prize;
     private CustomTextView summary;
     private CustomTextViewBold name;
+
+    ListView commentsView;
+    CommentsAdaptor commentsAdaptor;
+    ArrayList<Comment> comments = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +63,32 @@ public class DetailActivity extends AppCompatActivity {
         summary.setText("Summary :\n" + detail.getSummary());
         date.setText("Date :\n" + detail.getDate());
 
+        commentsView = (ListView) findViewById(R.id.comments_list);
+        new FetchComments().execute();
+    }
+
+    private ArrayList<Comment> fetchComments() {
+        comments.add(new Comment("Naren", "Hello", "11/22/2015"));
+        comments.add(new Comment("Naren", "Hello", "11/22/2015"));
+        comments.add(new Comment("Naren", "Hello", "11/22/2015"));
+        comments.add(new Comment("Naren", "Hello", "11/22/2015"));
+        comments.add(new Comment("Naren", "Hello", "11/22/2015"));
+        return comments;
+    }
+
+    private class FetchComments extends AsyncTask<Void, Integer, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            comments = fetchComments();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            commentsView.setAdapter(new CommentsAdaptor(commentsView.getContext(), comments));
+        }
     }
 
     private EventDetail getDetail() {
