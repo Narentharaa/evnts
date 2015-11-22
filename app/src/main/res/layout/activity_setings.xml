@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+    <LinearLayout
+    android:orientation="horizontal"
+    android:layout_marginTop="20dp"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <com.code.hacks.codered.evnts.evnts.views.CustomTextView
+        android:id="@+id/PushNotification"
+        android:layout_weight="0.4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapWords"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/PushNotification"
+        android:textColor="@color/base_text_color">
+    </com.code.hacks.codered.evnts.evnts.views.CustomTextView>
+
+    <ToggleButton
+        android:id="@+id/toggBtn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_weight="0.3"
+        android:gravity="right"/>
+</LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <com.code.hacks.codered.evnts.evnts.views.CustomTextView
+            android:id="@+id/vibration"
+            android:layout_weight="0.4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:text="@string/vibration"
+            android:textColor="@color/base_text_color">
+        </com.code.hacks.codered.evnts.evnts.views.CustomTextView>
+
+        <ToggleButton
+            android:id="@+id/toggBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_weight="0.3"
+            android:gravity="right"/>
+    </LinearLayout>
+</LinearLayout>
