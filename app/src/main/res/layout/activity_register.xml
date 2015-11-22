@@ -21,6 +21,7 @@
             android:id="@+id/firstName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:inputType="textCapWords"
             android:hint="@string/firstName"
             android:textColorHint="@color/hint_foreground_material_light"
@@ -32,7 +33,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:textColorHint="@color/hint_foreground_material_light"
             android:hint="@string/lastName"
             android:textColor="@color/base_text_color">
@@ -42,7 +43,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:textColorHint="@color/hint_foreground_material_light"
             android:hint="@string/univName"
             android:textColor="@color/base_text_color">
@@ -52,7 +53,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:textColorHint="@color/hint_foreground_material_light"
             android:hint="@string/email"
             android:textColor="@color/base_text_color">
@@ -62,7 +63,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:textColorHint="@color/hint_foreground_material_light"
             android:hint="@string/password"
             android:textColor="@color/base_text_color">
@@ -72,7 +73,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:textColorHint="@color/hint_foreground_material_light"
             android:hint="@string/confirm_password"
             android:textColor="@color/base_text_color">
@@ -81,7 +82,7 @@
             android:id="@+id/signup_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/custom_btn"
             android:gravity="center"
             android:text="@string/signup"
