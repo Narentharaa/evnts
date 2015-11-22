@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+    <com.code.hacks.codered.evnts.evnts.views.CustomTextView
+    android:id="@+id/help"
+    android:layout_weight="0.4"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:inputType="textMultiLine"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="20dp"
+    android:text="Objective
+
+One place to find all the events happening in your campus.
+
+Description:
+
+How often you miss an event at your university??
+As there are many diverse programs happening on the campus all through the semester, it is difficult to
+find a single platform to find all those events.
+Students currenlty pursuing their bachelors or masters degree though very talented are not able to expose their talents as they are
+not able to keep track of all the events happening within and outside college.
+Our App provides a platform for students to find all the events. It gives all the details of the events like Venue, Date and time of occurance,
+Once registered, it'll be stored in user's profile.
+Apart from that, once the user creates a profile on this App, he can store the events of his interest(favourites) even without registering.
+To ease the user experience we have provided filters to search. So based on the user's area of interest, only related events will be displayed.
+"
+    android:textColor="@color/base_text_color"/>
+</LinearLayout>
