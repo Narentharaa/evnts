@@ -117,6 +117,7 @@
 
             <com.code.hacks.codered.evnts.evnts.views.CustomButton
                 style="?android:attr/borderlessButtonStyle"
+                android:id="@+id/more_detail_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

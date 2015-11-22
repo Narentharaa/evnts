@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.code.hacks.codered.evnts.evnts.DetailActivity;
 import com.code.hacks.codered.evnts.evnts.R;
 import com.code.hacks.codered.evnts.evnts.bean.Event;
+import com.code.hacks.codered.evnts.evnts.views.CustomButton;
 import com.code.hacks.codered.evnts.evnts.views.CustomTextView;
 import com.code.hacks.codered.evnts.evnts.views.CustomTextViewBold;
 import com.squareup.picasso.Picasso;
@@ -63,6 +64,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         private CustomTextView eventDate;
         private CustomTextView eventLocation;
         private ImageButton shareButton;
+        private CustomButton moreDetailButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -71,6 +73,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             eventLocation = (CustomTextView) itemView.findViewById(R.id.event_location);
             eventDate = (CustomTextView) itemView.findViewById(R.id.event_date);
             shareButton = (ImageButton) itemView.findViewById(R.id.share_button);
+            moreDetailButton = (CustomButton) itemView.findViewById(R.id.more_detail_button);
 
             shareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,14 +88,21 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                 }
             });
 
+            moreDetailButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent detailIntent = new Intent(v.getContext(), DetailActivity.class);
+                    v.getContext().startActivity(detailIntent);
+                }
+            });
+
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             //Call the Event Detail Intent here
-            Intent detail = new Intent(v.getContext(), DetailActivity.class);
-            v.getContext().startActivity(detail);
+
         }
     }
 }
