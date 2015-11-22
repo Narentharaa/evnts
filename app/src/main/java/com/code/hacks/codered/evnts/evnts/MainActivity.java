@@ -1,5 +1,7 @@
 package com.code.hacks.codered.evnts.evnts;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,10 +24,17 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
     private Handler mHandler;
     private Fragment fragment;
 
+    private SharedPreferences pref;
+    private SharedPreferences.Editor prefEditor;
+    private String eventPref = "EVENT_PREF";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        pref = getSharedPreferences(eventPref, MODE_PRIVATE);
+        prefEditor = pref.edit();
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -47,6 +56,16 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 
         if(position == 1) {
             fragment = CategoryFragment.newInstance();
+        }
+
+        if(position == 6) {
+            prefEditor.clear();
+            prefEditor.commit();
+
+            Intent loginAct = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginAct);
+            finish();
+
         }
 
         final Handler handler = new Handler();

@@ -2,11 +2,11 @@ package com.code.hacks.codered.evnts.evnts;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -15,9 +15,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.code.hacks.codered.evnts.evnts.util.Util;
+import com.code.hacks.codered.evnts.evnts.bean.ShortUser;
+import com.code.hacks.codered.evnts.evnts.bean.User;
 import com.code.hacks.codered.evnts.evnts.views.CustomButton;
 import com.code.hacks.codered.evnts.evnts.views.CustomEditText;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +39,10 @@ public class RegisterActivity extends AppCompatActivity {
     private CustomEditText confirmPassword;
     private CustomButton signupButton;
 
+    private String eventPref = "EVENT_PREF";
+    private SharedPreferences pref;
+    private SharedPreferences.Editor prefEditor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +56,14 @@ public class RegisterActivity extends AppCompatActivity {
         password = (CustomEditText) findViewById(R.id.password);
         confirmPassword = (CustomEditText) findViewById(R.id.confirmPassword);
         signupButton = (CustomButton) findViewById(R.id.signup_button);
+
+        pref = getSharedPreferences(eventPref, MODE_PRIVATE);
+        prefEditor = pref.edit();
+
+        if(!pref.getString("current_user_id", "").isEmpty()) {
+            Intent mainActivity = new Intent(RegisterActivity.this, MainActivity.class);
+            startActivity(mainActivity);
+        }
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,9 +92,24 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser(Context context, final String firstName, final String lastName, final String email, final String password) {
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        StringRequest sr = new StringRequest(Request.Method.POST,"http://cced6296.ngrok.io/api/v1/users/", new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST,"http://6172ea19.ngrok.io/api/v1/users/", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
+                Gson gson = new Gson();
+
+                ShortUser user = gson.fromJson(response, ShortUser.class);
+
+                Toast.makeText(getApplicationContext(), user.getId(), Toast.LENGTH_SHORT).show();
+
+                prefEditor.putString("current_user_id", user.getId());
+                prefEditor.putString("current_user_email", user.getEmail());
+                prefEditor.putString("current_user_token", user.getAccessToken());
+
+                if(prefEditor.commit()) {
+
+                }
+
                 Toast.makeText(getApplicationContext(), "Registered successfully", Toast.LENGTH_SHORT).show();
                 Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intentMain);
@@ -105,4 +134,9 @@ public class RegisterActivity extends AppCompatActivity {
         queue.add(sr);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 }

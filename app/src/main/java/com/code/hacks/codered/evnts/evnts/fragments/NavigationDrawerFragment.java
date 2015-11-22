@@ -115,6 +115,7 @@ public class NavigationDrawerFragment extends Fragment {
         actionsArrayList.add(new DrawerItem("Bookmarked", R.mipmap.ic_action_bookmark));
         actionsArrayList.add(new DrawerItem("Settings", R.mipmap.ic_action_settings));
         actionsArrayList.add(new DrawerItem("Help", R.mipmap.ic_action_help));
+        actionsArrayList.add(new DrawerItem("Sign out", R.mipmap.ic_action_settings));
 
         adapter = new NavDrawerAdapter(getActivity(), actionsArrayList);
         actionsList.setAdapter(adapter);

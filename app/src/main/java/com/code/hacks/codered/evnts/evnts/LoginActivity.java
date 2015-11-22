@@ -2,6 +2,7 @@ package com.code.hacks.codered.evnts.evnts;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,9 +17,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.code.hacks.codered.evnts.evnts.bean.Session;
 import com.code.hacks.codered.evnts.evnts.util.Util;
 import com.code.hacks.codered.evnts.evnts.views.CustomButton;
 import com.code.hacks.codered.evnts.evnts.views.CustomEditText;
+import com.google.gson.Gson;
 
 import java.lang.reflect.Array;
 import java.util.HashMap;
@@ -35,8 +38,11 @@ public class LoginActivity extends AppCompatActivity {
     private CustomEditText password;
     private CustomButton loginButton;
     private CustomButton signupButton;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor prefEditor;
 
-    RequestQueue queue;
+    private RequestQueue queue;
+    private String eventPref = "EVENT_PREF";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,14 @@ public class LoginActivity extends AppCompatActivity {
         password = (CustomEditText) findViewById(R.id.password);
         loginButton = (CustomButton) findViewById(R.id.login_button);
         signupButton = (CustomButton) findViewById(R.id.signup_button);
+
+        pref = getSharedPreferences(eventPref, MODE_PRIVATE);
+        prefEditor = pref.edit();
+
+        if(!pref.getString("current_user_id", "").isEmpty()) {
+            Intent mainActivity = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(mainActivity);
+        }
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -87,9 +101,20 @@ public class LoginActivity extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        StringRequest sr = new StringRequest(Request.Method.POST,"http://cced6296.ngrok.io/api/v1/sessions/", new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST,"http://6172ea19.ngrok.io/api/v1/sessions/", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
+                Gson gson = new Gson();
+
+                Session session = gson.fromJson(response, Session.class);
+
+                prefEditor.putString("current_user_id", session.getId());
+                prefEditor.putString("current_user_email", session.getEmail());
+                prefEditor.putString("current_user_token", session.getAccessToken());
+
+                prefEditor.commit();
+
                 Toast.makeText(getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
                 Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intentMain);
@@ -110,5 +135,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         queue.add(sr);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 }
