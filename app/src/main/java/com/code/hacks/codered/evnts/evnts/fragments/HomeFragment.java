@@ -21,6 +21,7 @@ import com.code.hacks.codered.evnts.evnts.R;
 import com.code.hacks.codered.evnts.evnts.adapters.EventListAdapter;
 import com.code.hacks.codered.evnts.evnts.bean.Event;
 import com.code.hacks.codered.evnts.evnts.models.Events;
+import com.code.hacks.codered.evnts.evnts.util.Constants;
 import com.google.gson.Gson;
 
 /**
@@ -64,11 +65,11 @@ public class HomeFragment extends Fragment {
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
-        String url = "http://6172ea19.ngrok.io/api/v1/events";
+        String url = Constants.API_URL + "events";
         int categoryId = intent.getIntExtra("category_id", 0);
 
         if (categoryId != 0)
-            url = "http://6172ea19.ngrok.io/api/v1/categories/" + categoryId;
+            url = Constants.API_URL + "categories/" + categoryId;
 
         StringRequest sr = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

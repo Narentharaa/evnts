@@ -17,6 +17,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.code.hacks.codered.evnts.evnts.bean.ShortUser;
 import com.code.hacks.codered.evnts.evnts.bean.User;
+import com.code.hacks.codered.evnts.evnts.util.Constants;
 import com.code.hacks.codered.evnts.evnts.views.CustomButton;
 import com.code.hacks.codered.evnts.evnts.views.CustomEditText;
 import com.google.gson.Gson;
@@ -92,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser(Context context, final String firstName, final String lastName, final String email, final String password) {
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        StringRequest sr = new StringRequest(Request.Method.POST,"http://6172ea19.ngrok.io/api/v1/users/", new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Constants.API_URL + "users/", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -107,12 +108,11 @@ public class RegisterActivity extends AppCompatActivity {
                 prefEditor.putString("current_user_token", user.getAccessToken());
 
                 if(prefEditor.commit()) {
-
+                    Toast.makeText(getApplicationContext(), "Registered successfully", Toast.LENGTH_SHORT).show();
+                    Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intentMain);
                 }
 
-                Toast.makeText(getApplicationContext(), "Registered successfully", Toast.LENGTH_SHORT).show();
-                Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intentMain);
             }
         }, new Response.ErrorListener() {
             @Override

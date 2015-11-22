@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.code.hacks.codered.evnts.evnts.bean.Session;
+import com.code.hacks.codered.evnts.evnts.util.Constants;
 import com.code.hacks.codered.evnts.evnts.util.Util;
 import com.code.hacks.codered.evnts.evnts.views.CustomButton;
 import com.code.hacks.codered.evnts.evnts.views.CustomEditText;
@@ -101,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        StringRequest sr = new StringRequest(Request.Method.POST,"http://6172ea19.ngrok.io/api/v1/sessions/", new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Constants.API_URL + "sessions/", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

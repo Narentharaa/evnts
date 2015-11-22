@@ -20,6 +20,7 @@ import com.code.hacks.codered.evnts.evnts.adapters.NavDrawerAdapter;
 import com.code.hacks.codered.evnts.evnts.bean.DrawerItem;
 import com.code.hacks.codered.evnts.evnts.models.Categories;
 import com.code.hacks.codered.evnts.evnts.models.Category;
+import com.code.hacks.codered.evnts.evnts.util.Constants;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -108,7 +109,7 @@ public class CategoryFragment extends ListFragment {
 
         createIconMap();
 
-        StringRequest sr = new StringRequest(Request.Method.GET, "http://6172ea19.ngrok.io/api/v1/categories",
+        StringRequest sr = new StringRequest(Request.Method.GET, Constants.API_URL + "categories",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
