@@ -92,6 +92,13 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                 @Override
                 public void onClick(View v) {
                     Intent detail = new Intent(v.getContext(), DetailActivity.class);
+                    for(Event event : eventArrayList) {
+                        if (event.getName().trim().equals(eventName.getText().toString().trim())) {
+                            detail.putExtra("event_id", event.getId());
+                            break;
+                        }
+                    }
+
                     v.getContext().startActivity(detail);
                 }
             });

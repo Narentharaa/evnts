@@ -1,12 +1,16 @@
 package com.code.hacks.codered.evnts.evnts.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by sandeep on 11/22/2015.
  */
 public class Comment {
-
+    @SerializedName("user_name")
     private String userName;
+    @SerializedName("comment_text")
     private String comment;
+    @SerializedName("created_at")
     private String date;
 
     public Comment(String userName, String comment, String date) {
