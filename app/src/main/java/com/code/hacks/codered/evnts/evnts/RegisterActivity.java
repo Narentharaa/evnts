@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -16,12 +18,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.code.hacks.codered.evnts.evnts.bean.ShortUser;
-import com.code.hacks.codered.evnts.evnts.bean.User;
+import com.code.hacks.codered.evnts.evnts.bean.Universities;
+import com.code.hacks.codered.evnts.evnts.bean.University;
 import com.code.hacks.codered.evnts.evnts.util.Constants;
 import com.code.hacks.codered.evnts.evnts.views.CustomButton;
 import com.code.hacks.codered.evnts.evnts.views.CustomEditText;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private CustomEditText firstName;
     private CustomEditText lastName;
-    private CustomEditText univName;
+    private AutoCompleteTextView univName;
     private CustomEditText email;
     private CustomEditText password;
     private CustomEditText confirmPassword;
@@ -44,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
     private SharedPreferences pref;
     private SharedPreferences.Editor prefEditor;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,16 +57,18 @@ public class RegisterActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         firstName = (CustomEditText) findViewById(R.id.firstName);
         lastName = (CustomEditText) findViewById(R.id.lastName);
-        univName = (CustomEditText) findViewById(R.id.univName);
+        univName = (AutoCompleteTextView) findViewById(R.id.univName);
         email = (CustomEditText) findViewById(R.id.email);
         password = (CustomEditText) findViewById(R.id.password);
         confirmPassword = (CustomEditText) findViewById(R.id.confirmPassword);
         signupButton = (CustomButton) findViewById(R.id.signup_button);
 
+        fetchUniversities();
+
         pref = getSharedPreferences(eventPref, MODE_PRIVATE);
         prefEditor = pref.edit();
 
-        if(!pref.getString("current_user_id", "").isEmpty()) {
+        if (!pref.getString("current_user_id", "").isEmpty()) {
             Intent mainActivity = new Intent(RegisterActivity.this, MainActivity.class);
             startActivity(mainActivity);
         }
@@ -72,10 +79,15 @@ public class RegisterActivity extends AppCompatActivity {
                 boolean isComplete = true;
                 isComplete = !firstName.isEmpty(CustomEditText.ERROR) && isComplete;
                 isComplete = !lastName.isEmpty(CustomEditText.ERROR) && isComplete;
-                isComplete = !univName.isEmpty(CustomEditText.ERROR) && isComplete;
                 isComplete = !email.isEmpty(CustomEditText.ERROR) && isComplete;
                 isComplete = !password.isEmpty(CustomEditText.ERROR) && isComplete;
                 isComplete = !confirmPassword.isEmpty(CustomEditText.ERROR) && isComplete;
+
+                if(univName.getText().toString().trim().equals("")) {
+                    isComplete = false;
+                    univName.setError("Please fill University Name");
+                }
+
                 if (isComplete) {
                     if (!password.isSameAs(confirmPassword)) {
                         confirmPassword.setError("Passwords do not match.");
@@ -88,6 +100,30 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void fetchUniversities() {
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        StringRequest sr = new StringRequest(Request.Method.GET, Constants.API_URL + "/universities",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Gson gson = new Gson();
+                        Universities universities = gson.fromJson(response, Universities.class);
+                        ArrayList<String> univList = new ArrayList<>();
+                        for (University univ : universities.getUniversities())
+                            univList.add(univ.getName());
+                        univName.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, univList));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(getApplicationContext(), "Error while fetching event info.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        queue.add(sr);
     }
 
     private void registerUser(Context context, final String firstName, final String lastName, final String email, final String password) {
@@ -107,7 +143,7 @@ public class RegisterActivity extends AppCompatActivity {
                 prefEditor.putString("current_user_email", user.getEmail());
                 prefEditor.putString("current_user_token", user.getAccessToken());
 
-                if(prefEditor.commit()) {
+                if (prefEditor.commit()) {
                     Toast.makeText(getApplicationContext(), "Registered successfully", Toast.LENGTH_SHORT).show();
                     Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intentMain);
@@ -119,9 +155,9 @@ public class RegisterActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
-        }){
+        }) {
             @Override
-            protected Map<String,String> getParams() {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("user[email]", email);
                 params.put("user[password]", password);

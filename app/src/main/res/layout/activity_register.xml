@@ -38,7 +38,7 @@
             android:hint="@string/lastName"
             android:textColor="@color/base_text_color">
         </com.code.hacks.codered.evnts.evnts.views.CustomEditText>
-        <com.code.hacks.codered.evnts.evnts.views.CustomEditText
+        <AutoCompleteTextView
             android:id="@+id/univName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             android:textColorHint="@color/hint_foreground_material_light"
             android:hint="@string/univName"
             android:textColor="@color/base_text_color">
-        </com.code.hacks.codered.evnts.evnts.views.CustomEditText>
+        </AutoCompleteTextView>
         <com.code.hacks.codered.evnts.evnts.views.CustomEditText
             android:id="@+id/email"
             android:layout_width="fill_parent"
