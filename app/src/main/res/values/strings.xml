@@ -28,6 +28,8 @@
     <string name="close">CLOSED</string>
     <string name="no_location">No Location Specified</string>
     <string name="more_details">More Details...</string>
-    <string name="PushNotification">Push Notification</string>
+    <string name="PushNotification">PushNotification</string>
     <string name="vibration">vibration</string>
+    <string name="comments">Comments</string>
+    <string name="no_contact_info">No Contact Info</string>
 </resources>
